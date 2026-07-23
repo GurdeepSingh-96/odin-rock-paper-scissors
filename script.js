@@ -1,10 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-let humanChoice = getHumanChoice();
-let computerChoice = getComputerChoice();
-
-
-
 function getRandomInt(max){
     return Math.floor(Math.random()* max);
 }
@@ -27,22 +20,21 @@ function getComputerChoice(){
 }
 
 function getHumanChoice(){
-    let humanChoice = prompt("Enter an integer: 1.rock, 2.paper, 3.scissors")
-
-    if(parseInt(humanChoice) === 1){
-        humanChoice = "rock"
-    }
-    else if (parseInt(humanChoice) === 2){
-        humanChoice = "paper"
-    }
-    else {
-        humanChoice = "scissors"
-    }
+    let humanChoiceRaw = prompt("Choose a shape:rock, paper, scissors")
+    let humanChoice = humanChoiceRaw.toLowerCase().trim()
 
     return humanChoice
 }
 
-function playRound(computerChoice, humanChoice){
+
+
+function playGame() {
+
+    let humanScore = 0;
+    let computerScore = 0;
+    let winner;
+
+    function playRound(computerChoice, humanChoice){
     let result;
     if ((computerChoice === "paper" && humanChoice === "rock") || (computerChoice === "rock" && humanChoice === "scissors") || (computerChoice === "scissors" && humanChoice === "paper")) {
         computerScore++;
@@ -57,10 +49,29 @@ function playRound(computerChoice, humanChoice){
     }
 
     return result
+    }
+
+    for(let i = 0; i < 5; i++) {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+        console.log(computerChoice)
+        console.log(humanChoice)
+        console.log(playRound(computerChoice, humanChoice))
+    }
+
+    if(humanScore > computerScore) {
+        winner = "You"
+    }
+    else if(computerScore > humanScore) {
+        winner = "Computer"
+    }
+    else {
+        winner = "Nobody"
+    }
+    return ("Your score: " + humanScore + " Computer score: " + computerScore + ". " + winner + " wins the game" )
 }
 
-console.log(computerChoice)
-console.log(humanChoice)
-console.log(playRound(computerChoice,humanChoice))
-console.log(humanScore)
-console.log(computerScore)
+
+
+
+console.log(playGame())
